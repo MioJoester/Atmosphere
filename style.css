@@ -1,0 +1,155 @@
+body {
+    background: -webkit-linear-gradient(to right, rgba(12, 106, 247, 0.8),  rgba(0, 0, 0, 0.8));
+    background: linear-gradient(to right, rgba(2, 39, 252, 0.8), rgba(3, 3, 3, 0.8));
+    user-select: none;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+   
+}
+
+
+#actual-info {
+    height:100%;
+    width: 35%;
+}
+
+#animation {
+    height: 100%;
+    width: 65%;
+    background-color: transparent;
+ 
+    margin-top: 30px;
+}
+
+#particles-js {
+    position:absolute;
+    height: 80%;
+    width: 80%;
+    background-color: transparent;
+    
+  }
+  
+
+
+#info-wrap {
+    display: flex;
+    flex-direction: row;
+    height: 300px;
+    width: 100%;
+    background-color: transparent;
+}
+
+#city {
+    height: 35px;
+    width: 100%;
+    background-color: transparent;
+    margin-top: 30px;
+    font-weight: bold;
+    font-size: 21px;
+    margin-left: 20px;
+}
+
+#container-for-all {
+    display: flex;
+    flex-direction: row;
+    align-items: center;  
+    height: 250px;
+    width: 99%;
+    background-color: rgba(0, 0, 0, 0.4);
+    margin-top: 50px;
+    border-radius: 30px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    margin-left: 2px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    scrollbar-width: none;
+}
+
+#container-for-al{
+    display: flex;
+    flex-direction: row;
+    align-items: center;  
+    height: 250px;
+    width: 99%;
+    background-color: rgba(0, 0, 0, 0.4);
+    margin-top: 50px;
+    border-radius: 30px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    margin-left: 2px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    scrollbar-width: none;
+
+ }
+
+#temps {
+
+    margin-top: 35px;
+    font-size: 60px;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+#up-down {
+    margin-left: 20px;
+
+}
+
+#up-down-f {
+    margin-left: 20px;
+}
+
+#summary {
+    font-size: large;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-top: 30px;
+}
+
+#cards {
+    flex: 0 0 auto;  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;     /* prevents growing and wrapping */
+    min-width: 100px;     /* or whatever fixed size you want */
+    margin-right: 12px;
+    color: white;
+    height: 80%;
+    width: 150px;
+    background-color: transparent;
+    
+    margin-left: 10px;
+    transition: all 0.5s ease-in-out;
+    border-radius: 20px;
+    cursor:pointer;
+
+}
+
+#cards:hover {
+    transform: translateY(-20px);
+}
+
+#time {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: small;
+    width: 80%;
+    
+}
+
+#weather-icon {
+    font-size:60px;
+}
+
+#temp-at-time {
+    font-weight: bold;
+}
+
+#container-for-all::-webkit-scrollbar {
+    display: none;
+}

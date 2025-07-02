@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atmosphere</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
+<body>
+ 
+    
+<div id="info-wrap">
+   
+    <div id="actual-info">
+    <div id="city">London</div>
+
+
+    <div id="temps">31°</div>
+
+    <div id="summary">Snowy</div>
+
+    <div id="up-down">↑32°/26°↓</div>
+    <div id="up-down">Feels like 36°</div>
+    <div id="up-down-f">Wednesday, 12:09 pm</div>
+    </div>
+    <div id="animation">
+        <div id="particles-js"></div>
+    </div>
+
+</div>
+    <div id="container-for-all">
+
+        
+        <div id="cards">
+            <div id="time">12:30 pm</div>
+            <dov id="weather-icon"><i class="fas fa-cloud"></i></dov>
+            <div id="temp-at-time">31°</div>
+
+                
+        </div>
+
+
+        <div id="cards">
+                <div id="time">1:30 pm</div>
+                <dov id="weather-icon"><i class="fas fa-cloud-rain"></i></dov>
+                <div id="temp-at-time">29°</div>
+    
+                    
+        </div>
+
+
+        <div id="cards">
+            <div id="time">2:30 pm</div>
+            <dov id="weather-icon"><i class="fas fa-cloud-rain"></i></dov>
+            <div id="temp-at-time">27°</div>
+
+                
+        </div>
+
+
+        <div id="cards">
+            <div id="time">3:30 pm</div>
+            <dov id="weather-icon"><i class="fas fa-sun"></i></dov>
+            <div id="temp-at-time">31°</div>
+
+                
+        </div>
+
+        <div id="cards">
+            <div id="time">4:30 pm</div>
+            <dov id="weather-icon"><i class="fas fa-sun"></i></dov>
+            <div id="temp-at-time">31°</div>
+
+                
+        </div>
+
+
+        <div id="cards">
+            <div id="time">5:30 pm</div>
+            <dov id="weather-icon"><i class="fas fa-cloud"></i></dov>
+            <div id="temp-at-time">29°</div>
+
+                
+        </div>
+
+        <div id="cards">
+            <div id="time">6:30 pm</div>
+            <dov id="weather-icon"><i class="fas fa-cloud"></i></dov>
+            <div id="temp-at-time">29°</div>
+
+                
+        </div>
+
+        <div id="cards">
+            <div id="time">7:30 pm</div>
+            <dov id="weather-icon"><i class="fas fa-cloud"></i></dov>
+            <div id="temp-at-time">29°</div>
+
+                
+        </div>
+
+        <div id="cards">
+            <div id="time">8:30 pm</div>
+            <dov id="weather-icon"><i class="fas fa-moon"></i></dov>
+            <div id="temp-at-time">26°</div>
+
+                
+        </div>
+
+
+
+
+
+        </div>
+      
+
+    </div>
+
+    <div id="container-for-al"></div>
+</body>
+
+
+<script>
+
+
+
+function updateTime() {
+  const now = new Date();
+
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+
+  // Optional: format to 12-hour time with AM/PM
+  const formattedTime = now.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  });
+
+  document.getElementById('up-down-f').textContent = formattedTime;
+}
+
+// Initial call
+updateTime();
+
+// Update every second
+setInterval(updateTime, 1000);
+
+
+
+
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {
+          "value": 50,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": { "value": "#ffffff" },
+        "shape": {
+          "type": "circle",
+          "stroke": { "width": 0, "color": "#000000" }
+        },
+        "opacity": {
+          "value": 0.9,
+          "random": true,
+          "anim": {
+            "enable": false
+          }
+        },
+        "size": {
+          "value": 3,
+          "random": true
+        },
+        "line_linked": {
+          "enable": false,
+          "distance": 150,
+          "color": "#000000",
+          "opacity": 0.2,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 2.5,
+          "direction": "bottom",
+          "out_mode": "out"
+        }
+      },
+      "interactivity": {
+        "events": {
+          "onhover": {
+            "enable": false,
+            "mode": "repulse"
+          }
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
+</html>
