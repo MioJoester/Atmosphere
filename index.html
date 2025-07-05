@@ -6,8 +6,7 @@
     <title>Atmosphere</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="icon" href="./asset/logo.jpg">
-    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" href="/asset/logo.jpg">
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </head>
 <body>
@@ -16,19 +15,48 @@
 <div id="info-wrap">
    
     <div id="actual-info">
-    <div id="city">London</div>
+    <div id="city">Delhi</div>
 
 
-    <div id="temps">18°</div>
+    <div id="temp">26°</div>
 
-    <div id="summary">Snowy</div>
+    <div id="summary">Rainy</div>
 
     <div id="up-down">↑32°/26°↓</div>
     <div id="up-down">Feels like 36°</div>
     <div id="up-down-f">Wednesday, 12:09 pm</div>
     </div>
+
     <div id="animation">
-        <div id="particles-js"></div>
+    <!-- <div id="particles-js"> -->
+      <div class="weather-animation rainy">
+        <div class="cloud"></div>
+      
+        <div class="drop"></div>
+        <div class="drop"></div>
+        <div class="drop"></div>
+        <div class="drop"></div>
+        <div class="drop"></div>
+        <div class="drop"></div>
+        <div class="drop"></div>
+    </div>
+
+
+    <div class="weather-animation sunny">
+      <div class="weather-animation sun"></div>
+    </div>
+     
+
+
+    
+      
+    </div>
+
+      
+    </div>
+
+
+
     </div>
 
 </div>
@@ -120,101 +148,145 @@
 
     </div>
 
-    <div id="container-for-al"></div>
+    <div id="container-for-al">
+        
+    </div>
+
+<div id="weather-code"></div>
 </body>
 
 
 <script>
 
 
+// Run on DOM load
+window.addEventListener('DOMContentLoaded', () => {
+  fetchWeatherAndAnimate();
+  setDynamicBackground();
+  updateTime();
+  setInterval(updateTime, 1000);
+});
 
+
+
+
+function showWeatherAnimation(weatherCode) {
+  const allAnimations = document.querySelectorAll('.weather-animation');
+
+  // Hide all animations
+  allAnimations.forEach(anim => {
+    anim.style.display = 'none';
+  });
+
+  // Show the matched one
+  const animClass = getWeatherAnimationId(weatherCode);
+  const activeAnim = document.querySelector(`.weather-animation.${animClass}`);
+  if (activeAnim) {
+    activeAnim.style.display = 'block';
+  } else {
+    console.warn(`No animation class found for weather code ${weatherCode}`);
+  }
+}
+
+
+
+// ✅ Main function to fetch weather and trigger animation
+async function fetchWeatherAndAnimate() {
+  try {
+    const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=28.6517&longitude=77.2219&current=temperature_2m,weathercode&timezone=Asia/Kolkata');
+    const data = await res.json();
+    const code = data.current.weathercode;
+    const temp = data.current.temperature_2m;
+
+    document.getElementById("temp").innerHTML = `${temp}°`;
+    document.getElementById('weather-code').textContent = code;
+
+    showWeatherAnimation(code);
+  } catch (err) {
+    console.error("Weather fetch failed:", err);
+  }
+}
+
+// ✅ Renders animation based on stored code
+function renderAnimationFromStoredCode() {
+  const code = parseInt(document.getElementById('weather-code').textContent);
+  const animationContainer = document.getElementById('animation');
+  animationContainer.innerHTML = ''; // Clear previous
+
+  const animationId = getWeatherAnimationId(code);
+
+  const animDiv = document.createElement('div');
+  animDiv.classList.add(animationId); // ✅ sets class like "rainy"
+
+  animationContainer.appendChild(animDiv);
+}
+
+
+// ✅ Map weather codes to animation IDs
+function getWeatherAnimationId(code) {
+  if (code === 0) return 'sunny';
+  if (code === 2) return 'sun'
+  if (code === 3) return 'sunny';
+  if (code === 4) return 'dark-cloudy';
+  if ([45, 48].includes(code)) return 'foggy';
+  if ([51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code)) return 'rainy';
+  if ([71, 73, 75, 85, 86].includes(code)) return 'snowy';
+  if ([95, 96, 99].includes(code)) return 'stormy';
+  return 'default-sky';
+}
+
+
+// ✅ Time updater
 function updateTime() {
   const now = new Date();
-
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-
-  // Optional: format to 12-hour time with AM/PM
   const formattedTime = now.toLocaleTimeString([], {
     hour: '2-digit',
     minute: '2-digit',
     hour12: true
   });
-
   document.getElementById('up-down-f').textContent = formattedTime;
 }
 
-// Initial call
-updateTime();
 
-// Update every second
-setInterval(updateTime, 1000);
+// ✅ Dynamic background based on time
+function setDynamicBackground() {
+  const hour = new Date().getHours();
+  const body = document.body;
+  let gradient = '';
 
+  if (hour >= 5 && hour < 11) {
+    gradient = 'linear-gradient(to right, #89f7fe, #66a6ff)'; // Morning
+  } else if (hour >= 11 && hour < 16) {
+    gradient = 'linear-gradient(to right, orange, red)'; // Afternoon
+  } else if (hour >= 16 && hour < 19) {
+    gradient = 'linear-gradient(to right, #ff9966, #ff5e62)'; // Golden hour
+  } else {
+    gradient = 'linear-gradient(to right, #141e30, #243b55)'; // Night
+  }
 
-
-
-    particlesJS("particles-js", {
-      "particles": {
-        "number": {
-          "value": 50,
-          "density": {
-            "enable": true,
-            "value_area": 800
-          }
-        },
-        "color": { "value": "#ffffff" },
-        "shape": {
-          "type": "circle",
-          "stroke": { "width": 0, "color": "#000000" }
-        },
-        "opacity": {
-          "value": 0.9,
-          "random": true,
-          "anim": {
-            "enable": false
-          }
-        },
-        "size": {
-          "value": 3,
-          "random": true
-        },
-        "line_linked": {
-          "enable": false,
-          "distance": 150,
-          "color": "#000000",
-          "opacity": 0.2,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 2.5,
-          "direction": "bottom",
-          "out_mode": "out"
-        }
-      },
-      "interactivity": {
-        "events": {
-          "onhover": {
-            "enable": false,
-            "mode": "repulse"
-          }
-        }
-      },
-      "retina_detect": true
-    });
+  body.style.background = gradient;
+}
 
 
-      if ('serviceWorker' in navigator) {
+// ✅ Service Worker Registration (optional to remove if causing cache issues)
+if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js')
-      .then(registration => {
-        console.log('ServiceWorker registration successful');
-      })
-      .catch(err => {
-        console.log('ServiceWorker registration failed: ', err);
-      });
+      .then(() => console.log('ServiceWorker registered'))
+      .catch(err => console.log('ServiceWorker failed:', err));
   });
 }
-    
+
+
+
+
+
+
+
+
+
+
+
+
   </script>
 </html>
